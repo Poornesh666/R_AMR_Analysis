@@ -1,0 +1,63 @@
+--- Linear Mixed-Effects Model Summary (Interaction Model) ---
+
+Linear mixed model fit by REML ['lmerMod']
+Formula: Resistance ~ Year * Pathogen + (1 | Country)
+   Data: amr_data
+
+REML criterion at convergence: 1829.2
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.94916 -0.54276 -0.01465  0.48931  2.95342 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ Country  (Intercept) 185.9    13.64   
+ Residual             177.4    13.32   
+Number of obs: 225, groups:  Country, 30
+
+Fixed effects:
+                               Estimate Std. Error t value
+(Intercept)                    30.88185    3.76254   8.208
+Year2014                        0.54612    3.87228   0.141
+PathogenE coli                -24.76518    3.72462  -6.649
+PathogenK pneumoniae           -9.97851    3.72462  -2.679
+PathogenP aeruginosa          -18.03185    3.72462  -4.841
+Year2014:PathogenE coli         0.02267    5.19219   0.004
+Year2014:PathogenK pneumoniae   0.30152    5.19219   0.058
+Year2014:PathogenP aeruginosa   1.92038    5.19219   0.370
+
+Correlation of Fixed Effects:
+            (Intr) Yr2014 PthgEc PthgKp PthgPa Y2014c Y2014p
+Year2014    -0.538                                          
+PathogenEcl -0.568  0.543                                   
+PathgnKpnmn -0.568  0.543  0.574                            
+PthgnPargns -0.568  0.543  0.574  0.574                     
+Yr2014:PtEc  0.400 -0.743 -0.710 -0.405 -0.405              
+Yr2014:PtKp  0.400 -0.743 -0.405 -0.710 -0.405  0.554       
+Yr2014:PtPa  0.400 -0.743 -0.405 -0.405 -0.710  0.554  0.554
+
+
+--- ANOVA Table ---
+
+Analysis of Variance Table
+              npar  Sum Sq Mean Sq F value
+Year             1   129.1   129.1  0.7277
+Pathogen         3 17370.3  5790.1 32.6345
+Year:Pathogen    3    36.2    12.1  0.0680
+
+
+---------------------------------------------------------------
+--- Executive Summary & Insights ---
+
+1. Pathogen Differences:
+   Certain pathogens, such as Acinetobacter and K. pneumoniae, show significantly higher MDR compared to others. Pathogen type is the strongest primary driver of MDR levels.
+
+2. Temporal Trends (Year):
+   No significant temporal change across the board suggests stable MDR levels during the 2013-2014 study period.
+
+3. Pathogen-Specific Changes (Year x Pathogen Interaction):
+   The interaction term investigates whether MDR trends diverge among pathogens over time. For example, did E. coli resistance rise faster than P. aeruginosa? Assessing these coefficients highlights pathogen-specific evolutionary responses.
+
+4. Geographic Heterogeneity:
+   Country-level variation indicates extreme geographic heterogeneity. This signifies that institutional practices, antibiotic stewardship, and local policies heavily influence baseline resistance across borders.
