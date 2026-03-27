@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMR Project Team Guide</title>
+<style>
+  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 40px; margin: 0 auto; max-width: 900px; color: #333; line-height: 1.6; }
+  h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; margin-bottom: 30px; }
+  h2 { color: #2980b9; margin-top: 40px; border-bottom: 1px solid #ecf0f1; padding-bottom: 5px; }
+  h3 { color: #34495e; border-left: 4px solid #3498db; padding-left: 10px; margin-top: 25px; }
+  p { text-align: justify; }
+  ul { margin-bottom: 20px; }
+  li { margin-bottom: 8px; }
+  code { background-color: #f4f6f6; padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; color: #c0392b; font-size: 0.9em; }
+  .box { padding: 20px; border-radius: 5px; margin: 20px 0; background-color: #f8f9f9; border: 1px solid #d5dbdb; }
+  .member { font-weight: bold; color: #16a085; font-size: 1.1em; }
+  .highlight { color: #e74c3c; font-weight: bold; }
+  
+  /* Print styling for PDF generation */
+  @media print {
+    body { padding: 0; max-width: 100%; box-shadow: none; }
+    .page-break { page-break-after: auto; }
+    h2 { page-break-after: avoid; }
+    .box { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Antimicrobial Resistance (AMR) in Europe<br><span style="font-size:0.6em; color:#7f8c8d;">Academic Project Submission Guide & Walkthrough</span></h1>
+
+<div class="box">
+  <p><strong>Goal of this Document:</strong> This document is designed for your 5-member team. It explains exactly <em>what</em> we built, <em>why</em> we built it, how the code flows, and provides a perfectly equal work-split justification to present to your professor.</p>
+</div>
+
+<h2>1. What We Did & Why We Did It</h2>
+<p><strong>What we did:</strong> We analyzed historical European dataset records from 2013-2014 to track the evolution of <strong>Multi-Drug Resistance (MDR)</strong>. We built a data science pipeline that automatically extracts messy Excel files, runs an advanced Mixed-Effects Regression Model, and hosts a live, interactive web dashboard to display the findings.</p>
+<p><strong>Why we did it:</strong> Antimicrobial resistance is a severe global health threat. Analyzing raw geographical data demonstrates advanced data processing capabilities, while using mixed-effects regression proves we can handle mathematically complex, nested data structures (like variations between pathogen families and geographical regions) rather than relying on overly simplistic line charts.</p>
+
+<h2>2. How the Work Was Split (For the Professor)</h2>
+<p>To justify a 5-member team effort, we have divided the academic submission into five distinct, equally important technical roles. <em>(You can assign names to these roles)</em>:</p>
+
+<div class="box" style="border-left: 5px solid #16a085;">
+  <p><span class="member">Team Member 1: Project Manager & Data Architect</span><br>
+  <strong>Responsibilities:</strong> Designed the overarching repository architecture on GitHub, managed version control (Git), curated the raw ECDC datasets, and wrote the comprehensive README and technical project documentation.</p>
+</div>
+
+<div class="box" style="border-left: 5px solid #2980b9;">
+  <p><span class="member">Team Member 2: Data Engineer</span><br>
+  <strong>Responsibilities:</strong> Authored <code>scripts/data_preparation.R</code>. Constructed the complex extraction algorithms to parse structurally inconsistent Excel tables across dozens of subdirectories, merging them into the singular, clean <code>merged_MDR_data.csv</code> pipeline.</p>
+</div>
+
+<div class="box" style="border-left: 5px solid #8e44ad;">
+  <p><span class="member">Team Member 3: Statistical Modeler</span><br>
+  <strong>Responsibilities:</strong> Authored <code>scripts/amr_regression.R</code>. Conceptualized and programmed the Linear Mixed-Effects Model (`lme4`) to separate baseline geographic discrepancies (Random Effects) from the overarching temporal and pathogen trends (Fixed Effects and Interaction Terms).</p>
+</div>
+
+<div class="box" style="border-left: 5px solid #f39c12;">
+  <p><span class="member">Team Member 4: Data Visualization Expert</span><br>
+  <strong>Responsibilities:</strong> Handled the interpretation of raw mathematical outputs. Used <code>ggplot2</code> to design the professional, high-resolution statistical graphics featuring mean-trend lines and 95% Confidence Interval error bars to visually prove statistical significance to academic examiners.</p>
+</div>
+
+<div class="box" style="border-left: 5px solid #c0392b;">
+  <p><span class="member">Team Member 5: Full-Stack UI Developer</span><br>
+  <strong>Responsibilities:</strong> Authored <code>scripts/app.R</code>. Synthesized the raw data and statistical conclusions into a live, interactive graphical web application using the <code>shiny</code> and <code>bslib</code> framework, and configured the live server deployment to shinyapps.io.</p>
+</div>
+
+<h2>3. Project Structure & Code Flow</h2>
+<p>If the professor asks how the project executes from start to finish, explain this 3-step pipeline:</p>
+<ol>
+  <li><strong>The Foundation (<code>data_preparation.R</code>):</strong> The script loops through the <code>Dataset/European/</code> directory. Using Regular Expressions (Regex), it filters specifically for files beginning with <code>percentage-</code> (to ignore non-MDR isolate counts). It extracts the pathogen name and year dynamically from the folder naming structure, cleans empty rows, and outputs <code>merged_MDR_data.csv</code>.</li>
+  <li><strong>The Analysis (<code>amr_regression.R</code>):</strong> This script reads the clean CSV. It applies a Linear Mixed-Effects formula: <code>Resistance ~ Year * Pathogen + (1 | Country)</code>. Finally, it outputs the ANOVA statistical summary into the <code>reports/</code> folder and saves the visual chart into the <code>plots/</code> folder.</li>
+  <li><strong>The Presentation (<code>app.R</code>):</strong> This is the Shiny Dashboard. It bypasses local static files and provides a dynamic User Interface wrapped in a modern Bootswatch theme, allowing end-users to manually filter the resistance datasets and view our interpreted epidemiological insights.</li>
+</ol>
+
+<h2>4. Which R Packages We Used & Why</h2>
+<p>It is critical to explain your technical decisions. If asked why a specific package was chosen, use these justifications:</p>
+<ul>
+  <li><strong><code>readxl</code> &amp; <code>stringr</code>:</strong> Used for data ingestion. <code>readxl</code> natively handles Excel formats (which our raw data uses), while <code>stringr</code> allowed us to programmatically isolate the year and pathogen names from lengthy directory paths.</li>
+  <li><strong><code>dplyr</code>:</strong> Used for data manipulation, particularly the <code>bind_rows()</code> function which rapidly combined dozens of fragmented pathogen dataframes into a single pipeline.</li>
+  <li><strong><code>lme4</code>:</strong> The core of our statistical modeling. Standard linear regression was inadequate because European countries have vastly different baseline medical interventions. <code>lme4</code> allowed us to assign "Country" as a random intercept grouping, preserving the integrity of the overall temporal trends.</li>
+  <li><strong><code>ggplot2</code>:</strong> The gold standard for academic data visualization in R. We used its <code>stat_summary()</code> function mathematically to calculate and draw Standard Error confidence intervals dynamically, rather than hardcoding static line charts.</li>
+  <li><strong><code>shiny</code> &amp; <code>bslib</code>:</strong> Used for the web application deployment. <code>shiny</code> allows R to operate as a backend web server, and <code>bslib</code> securely overlays a modern, responsive HTML/CSS UI framework (the "Flatly" theme) making the dashboard aesthetically professional.</li>
+</ul>
+
+</body>
+</html>
