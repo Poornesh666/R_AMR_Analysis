@@ -21,6 +21,9 @@ By utilizing a **Linear Mixed-Effects Model (LMM)**, this study separates inhere
 
 ---
 
+## 🌍 Live Interactive Dashboard
+[👉 Click Here to Interact with the Live Shiny App](https://poornesh666.shinyapps.io/RAMRAnalysis/)
+
 ## 🎯 Objectives
 1. **Data Ingestion pipelines**: Build robust algorithms to recursively parse, extract, and standardize disparate Excel sheets provided by health agencies into a unified dataset.
 2. **Statistical Modeling**: Apply interaction-based Mixed-Effects Models (`lme4`) to quantify whether certain bacterial families are evolving resistance faster than others over time.
